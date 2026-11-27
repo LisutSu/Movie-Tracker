@@ -25,17 +25,30 @@ function App() {
     setMovies(movies.filter(movie => movie.id !== id));
   };
 
+  // Count watched movies
+  const watchedCount = movies.filter(movie => movie.watched).length;
+
   return (
-    <div>
-      <h1>Movie Tracker</h1>
+    <div className="min-h-screen bg-gray-100 p-8">
+      <div className="max-w-xl mx-auto bg-white p-6 rounded-xl shadow-lg">
 
-      <AddMovie movies={movies} setMovies={setMovies} />
+        <h1 className="text-3xl font-bold text-center text-zinc-700 mb-4">
+          Movie Tracker
+        </h1>
 
-      <ListMovie
-        movies={movies}
-        toggleWatched={toggleWatched}
-        removeMovie={removeMovie}
-      />
+        <p className="text-center text-gray-500 mb-5">
+          Watched: {watchedCount} / {movies.length}
+        </p>
+
+        <AddMovie movies={movies} setMovies={setMovies} />
+
+        <ListMovie
+          movies={movies}
+          toggleWatched={toggleWatched}
+          removeMovie={removeMovie}
+        />
+
+      </div>
     </div>
   );
 }
