@@ -1,25 +1,39 @@
-import { useState } from "react"
 
-const AddTask = ({movies, setMyTask}) => {
+import { useState } from "react";
 
-    const[newMovie, setNewMovie]= useState("")
-    const handleAddMovies = () => {
-        if (!newMovie.trim()) return {
-           
-        }
-        setMyTask([
-            ...movies, 
-            {id: crypto.randomUUID() , text: newMovie, completed: false}
-        ])
+const AddMovie = ({ movies, setMovies }) => {
+  const [title, setTitle] = useState("");
 
+  const addMovie = (e) => {
+    e.preventDefault();
 
+    if (title === "") {
+      alert("Enter a movie title");
+      return;
     }
-    return (
-        <div className="flex flex-col justify-center">
-            <input value={newMovie} onChange={(e) => setNewMovie(e.target.value)} className="border-2 rounded p-1 border-gray-300" type="text" placeholder="Add a Movie" />
-            <button onClick={handleAddMovies} className="px-2 py-1 bg-gray-300 rounded cursor-pointer">Add new Movie</button>
-        </div>
-    )
-}
 
-export default AddTask
+    const newMovie = {
+      id: Date.now(),
+      title: title,
+      watched: false
+    };
+
+    setMovies([...movies, newMovie]);
+    setTitle("");
+  };
+
+  return (
+    <form onSubmit={addMovie}>
+      <input
+        type="text"
+        placeholder="Movie name"
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
+      />
+
+      <button type="submit">Add</button>
+    </form>
+  );
+};
+
+export default AddMovie;
